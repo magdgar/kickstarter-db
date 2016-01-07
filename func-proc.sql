@@ -1,4 +1,4 @@
-CREATE DEFINER=`root`@`%` FUNCTION `check_if_user_can_pass_this_amount`(user_id int, amount int) RETURNS tinyint(1)
+CREATE DEFINER=`root`@`%` FUNCTION `check_if_user_can_pass_this_amount`(user_id int, amount int) RETURNS boolean
 BEGIN
 	if (SELECT count(id) FROM kickstarter.users where id = user_id and money >= amount) 
 	then return true;
@@ -7,7 +7,7 @@ BEGIN
 	return false;
 END
 
-CREATE DEFINER=`root`@`%` FUNCTION `check_if_project_in_database`(project_id int) RETURNS tinyint(1)
+CREATE DEFINER=`root`@`%` FUNCTION `check_if_project_in_database`(project_id int) RETURNS boolean
 BEGIN
 	if (SELECT count(id) FROM kickstarter.projects where id = project_id) 
 	then return true;
